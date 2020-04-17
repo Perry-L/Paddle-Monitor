@@ -58,7 +58,7 @@ the speed factor is set to the recomended 2.8 which I have found to be a bit off
 the speed is an estimation and does not account for weight which is a majour factor in speed while paddeling as it effect acceleration
 f=ma <-- see
 
-millis() is the most common way of finding time with an arduino but with the speed of rotation this would result is very few preset powers which results in inaccurate readings at higher powers.
+millis() is the most common way of finding time with an arduino but with the speed of rotation this would result is very few preset powers which results in inaccurate readings at higher powers. see :  Power Example.csv
 of 
 2778, 2533, 2316, 2123, 1951 ect.
 

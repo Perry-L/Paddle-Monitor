@@ -25,13 +25,22 @@ beginOrEnd can only be 1 if its the starting or ending line and is used for iden
 unit 1 for seconds 0 for distance in metres
 
 example:
+
 1,3160,56 minuite pyramid,1,1
+
 0,120,nul,0,1
+
 1,30,nul,0,1
+
 0,30,nul,0,1
+
 ...
+
 0,120,nul,0,1
+
 0,3160,56 minuite pyramid,1,1
+
+
 
 beginning is identified with a 1 as the effort and 1 as the beginOrEnd
 end id identified with a 0 as the effort and 1 as the beginOrEnd

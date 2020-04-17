@@ -47,7 +47,7 @@ end id identified with a 0 as the effort and 1 as the beginOrEnd
 it is for this reason that the beginOrEnd must be 0 unless its the beginning or end line
 
 
-How the code works
+#How the code works
 
 the variables page can mostly be explained by
 http://eodg.atm.ox.ac.uk/user/dudhia/rowing/physics/ergometer.html
@@ -67,6 +67,15 @@ to fix this micros are used which though having the same problem it is 1000 time
 a min time between full flywheel rotation is set to 31426 microsecconds which results in a w value of roughly 200 and a power of 3000w which I believe is above 99% of users maxium power outputs as I can only peak at 1.6kW
 
 to combat the micros rollover which is a reasonably common occurance a function micros64 was made. this gets the micros value in a 64bit integer and works by counting the number of times that it rolls over. the micros64 function is therefor called in the loop every time which ensures that the rollover is found. it does not need to be this often but it is the most reliable repeating loop which will always catch the rollover and it is critical that it is caught before the w is called.
+
+StrokeRate
+difficult to calculate. innitially i would look for the peek, but this does not work, when you are slowing down it cannot correctly detect strokes which are just ilistrated by changes in gradient differering from the normal deacceleration.
+
+my seccond version used the seccond darivative and would look for areas where it was positive which indicate a minimum point. unfortunatly the way the flyweel slows down results in a constant positive as it is constantly increasing in gradient when slowing down (disapointing) so I had to create a new version 
+
+my third version attempted to calculated the seccond darivitive which is positive when no power is applied. if this is positive and the gradients ontop are both negative and it is then followed by data which is above the trend then a stroke is detected. this unfortunatly also didn't work properly but I may attemp to reintergrate this aproach as I beieve it is still better then the working one
+
+the one that worked and accuratly was to find the previous three gradients. if the first two of these (furthest away time wise) show a negative trend and the most recent (last) one is positive then the beginning of the stroke has been found. this works well even when sharply accelerating and when softly paddeling and slowing down and does not falsly trigger. so far the best one and when compaired to a sensor on the paddle it is spot on without having to add extra sensors which is difficult and expensive.
 
 
 Graphs works by mapping an array of data onto a simple graph with the tft.drawLine function which makes it really quite simple. to reduce flicker the previous lines are writen over with the same code but the colour white, this reduces the time required to update the graph and I have been able to run it at over 30FPS, but I have set the value at 10 because it is not needed and can clog up the processing and would also result in reading things faster then the Angular velocity(w) is updated.
